@@ -12,12 +12,28 @@ class PasswordLine
   end
 end
 
+class PasswordLine2
+  def initialize(position1:, position2:, letter:, password:)
+    @position1 = position1
+    @position2 = position2
+    @letter = letter
+    @password = password
+  end
+
+  def valid?
+    char1 = @password[@position1-1]
+    char2 = @password[@position2-1]
+
+    return (char1 == @letter || char2 == @letter) && char1 != char2
+  end
+end
+
 def parse_line(line)
   match = line.match(/(\d+)-(\d+) (\w{1}): (.*)/)
-  return PasswordLine.new(min_occurence: match[1].to_i,
-                          max_occurence: match[2].to_i,
-                          letter: match[3],
-                          password: match[4])
+  return PasswordLine2.new(position1: match[1].to_i,
+                           position2: match[2].to_i,
+                           letter: match[3],
+                           password: match[4])
 end
 
 def parse_lines(lines)
@@ -32,8 +48,3 @@ input = File.readlines "day2_puzzle_input.txt"
 parsed_lines = parse_lines(input)
 num_valid_passwords = parsed_lines.count { |line| line.valid? }
 puts num_valid_passwords
-
-#parsed_lines.each do |line|
-  #puts line.valid?
-  #p line
-#end
