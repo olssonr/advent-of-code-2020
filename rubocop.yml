@@ -1,0 +1,102 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+AllCops:
+  Exclude:
+    - .pryrc
+    - bin/*
+    - db/schema.rb
+    - node_modules/**/*
+    - vendor/**/*
+
+Layout/EndAlignment:
+  AutoCorrect: true
+Layout/ExtraSpacing:
+  AllowForAlignment: false
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: true
+Layout/IndentFirstArgument:
+  EnforcedStyle: consistent
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
+Layout/IndentFirstHashElement:
+  EnforcedStyle: consistent
+Layout/MultilineArrayLineBreaks:
+  Enabled: true
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: true
+Layout/MultilineMethodArgumentLineBreaks:
+  Enabled: true
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Lint/AssignmentInCondition:
+  AllowSafeAssignment: false
+Lint/ShadowingOuterLocalVariable: # TODO: enable
+  Enabled: false
+Lint/UselessAccessModifier:
+  ContextCreatingMethods:
+    - class_methods
+
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/LineLength:
+  AutoCorrect: true
+  Max: 120
+  Exclude:
+    - config/locales/**/*
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: error
+
+Rails:
+  Enabled: true
+Rails/ApplicationJob:
+  Exclude:
+    - test/**/*
+Rails/BelongsTo:
+  Enabled: false
+Rails/DynamicFindBy:
+  Enabled: false
+Rails/ReversibleMigration:
+  Enabled: false
+Rails/RequestReferer:
+  Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FormatStringToken:
+  EnforcedStyle: template
+Style/GuardClause: # TODO: enable
+  Enabled: false
+Style/MethodCallWithArgsParentheses:
+  Enabled: true
+  IgnoreMacros: false
+Style/RaiseArgs:
+  Exclude:
+    - app/authentications/*.rb
+Style/SignalException:
+  Exclude:
+    - app/authentications/*.rb
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  Enabled: false
