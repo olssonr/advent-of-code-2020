@@ -22,24 +22,26 @@ end
 
 # Class for moving the Toboggan
 class Toboggan
-  attr_reader :x, :y, :num_tress
+  attr_reader :x, :y, :num_trees
 
-  def initialize(map:)
+  def initialize(map:, right:, down:)
     @map = map
     @x = 0
     @y = 0
-    @num_tress = 0
+    @num_trees = 0
+    @right = right
+    @down = down
   end
 
   def move
-    @x += 3
-    @y += 1
+    @x += @right
+    @y += @down
 
     # TODO: would be nice if Tobogan did not have knowlodge of column_length
     # as well as a more readle check
     return false if @y >= @map.column_length
 
-    @num_tress += 1 if @map.position_has_tree?(x_coordinate: @x, y_coordinate: @y)
+    @num_trees += 1 if @map.position_has_tree?(x_coordinate: @x, y_coordinate: @y)
     true
   end
 
@@ -51,7 +53,15 @@ end
 input = File.readlines('day3_puzzle_input.txt', chomp: true)
 
 map = Map.new(rows: input)
-toboggan = Toboggan.new(map: map)
-toboggan.move_until_outside_map
+toboggans = [
+  Toboggan.new(map: map, right: 1, down: 1),
+  Toboggan.new(map: map, right: 3, down: 1),
+  Toboggan.new(map: map, right: 5, down: 1),
+  Toboggan.new(map: map, right: 7, down: 1),
+  Toboggan.new(map: map, right: 1, down: 2)
+]
+toboggans.each(&:move_until_outside_map)
 
-puts toboggan.num_tress
+answer = toboggans.inject(1) { |product, toboggan| product * toboggan.num_trees }
+
+puts answer
