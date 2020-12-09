@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Class for storing and checking positions on the map
 class Map
   attr_reader :map, :column_length, :row_length
 
@@ -7,16 +10,17 @@ class Map
     @column_length = @rows.length
   end
 
-  def get_position(x:, y:)
-    repeated_x = (x % @row_length)
-    return @rows[y][repeated_x]
+  def get_position(x_coordinate:, y_coordinate:)
+    repeated_x = (x_coordinate % @row_length)
+    @rows[y_coordinate][repeated_x]
   end
 
-  def position_has_tree?(x:, y:)
-    return self.get_position(x: x, y: y) == "#"
+  def position_has_tree?(x_coordinate:, y_coordinate:)
+    get_position(x_coordinate: x_coordinate, y_coordinate: y_coordinate) == '#'
   end
 end
 
+# Class for moving the Toboggan
 class Toboggan
   attr_reader :x, :y, :num_tress
 
@@ -34,10 +38,9 @@ class Toboggan
     # TODO: would be nice if Tobogan did not have knowlodge of column_length
     # as well as a more readle check
     return false if @y >= @map.column_length
-    #puts "x:#{@x} y:#{@y} = #{@map.get_position(x: @x, y: @y)}"
 
-    @num_tress += 1 if @map.position_has_tree?(x: @x, y: @y)
-    return true
+    @num_tress += 1 if @map.position_has_tree?(x_coordinate: @x, y_coordinate: @y)
+    true
   end
 
   def move_until_outside_map
@@ -45,7 +48,7 @@ class Toboggan
   end
 end
 
-input = File.readlines("day3_puzzle_input.txt", chomp: true)
+input = File.readlines('day3_puzzle_input.txt', chomp: true)
 
 map = Map.new(rows: input)
 toboggan = Toboggan.new(map: map)
