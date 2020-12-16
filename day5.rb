@@ -44,8 +44,9 @@ class BoardingPass
   end
 end
 
-
 input = File.readlines('day5_puzzle_input.txt', chomp: true)
 seats = input.map { |line| BoardingPass.new(line) }
 
-p seats.max.seat_id
+chunked_seats = seats.sort.chunk_while { |i, j| i.seat_id + 1 == j.seat_id }
+my_seat_id = chunked_seats.first.max.seat_id + 1
+p my_seat_id
